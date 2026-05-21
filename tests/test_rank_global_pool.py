@@ -49,6 +49,13 @@ class RankGlobalPoolTest(unittest.TestCase):
 
     def test_rerank_profile_resolves_remote_defaults(self):
         self.assertEqual(
+            self.mod._normalize_rerank_profile("zwwen"),
+            "public-zwwen-rerank",
+        )
+        public = self.mod._resolve_rerank_profile_config("public-zwwen-rerank")
+        self.assertEqual(public["provider"], "public_zwwen")
+        self.assertEqual(public["base_url"], "https://zwwen.online/rerank")
+        self.assertEqual(
             self.mod._normalize_rerank_profile("sf_0.6b"),
             "siliconflow-qwen3-0.6b",
         )
@@ -59,7 +66,7 @@ class RankGlobalPoolTest(unittest.TestCase):
             "https://api.siliconflow.cn/v1/rerank",
         )
 
-    def test_default_rerank_model_uses_local_default(self):
+    def test_default_rerank_model_uses_public_default(self):
         with patch.dict(self.mod.os.environ, {}, clear=True):
             self.assertEqual(
                 self.mod.resolve_default_rerank_model(),

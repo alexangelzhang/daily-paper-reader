@@ -30,7 +30,7 @@ class RemoteSentenceTransformerTest(unittest.TestCase):
 
         model = RemoteSentenceTransformer(
             model_name="BAAI/bge-small-en-v1.5",
-            endpoint="https://embed.zwwen.online",
+            endpoint="https://zwwen.online/embed",
             api_key="test-key",
             timeout=30,
             default_batch_size=2,
@@ -62,7 +62,7 @@ class RemoteSentenceTransformerTest(unittest.TestCase):
 
         model = RemoteSentenceTransformer(
             model_name="BAAI/bge-small-en-v1.5",
-            endpoint="https://embed.zwwen.online",
+            endpoint="https://zwwen.online/embed",
             api_key="test-key",
             timeout=30,
             default_batch_size=2,
@@ -92,7 +92,7 @@ class RemoteSentenceTransformerTest(unittest.TestCase):
 
         model = RemoteSentenceTransformer(
             model_name="BAAI/bge-small-en-v1.5",
-            endpoint="https://embed.zwwen.online",
+            endpoint="https://zwwen.online/embed",
             api_key="test-key",
             timeout=30,
             default_batch_size=2,
@@ -119,7 +119,7 @@ class RemoteSentenceTransformerTest(unittest.TestCase):
         model = load_sentence_transformer("BAAI/bge-small-en-v1.5", device="cpu")
         self.assertTrue(getattr(model, "is_remote", False))
         self.assertEqual(model.model_name, "BAAI/bge-small-en-v1.5")
-        self.assertEqual(model.endpoint, "https://embed.zwwen.online/embed")
+        self.assertEqual(model.endpoint, "https://zwwen.online/embed")
         self.assertEqual(model.timeout, 45)
         self.assertEqual(
             model.api_key,

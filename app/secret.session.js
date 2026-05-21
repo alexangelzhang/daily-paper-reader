@@ -240,6 +240,14 @@
   };
   const RERANKER_PROFILES = [
     {
+      value: 'public-zwwen-rerank',
+      label: '公益 Rerank（zwwen.online）',
+      provider: 'public_zwwen',
+      model: 'Qwen/Qwen3-Reranker-0.6B',
+      baseUrl: 'https://zwwen.online/rerank',
+      note: '默认推荐；使用 zwwen.online 公益 rerank 服务。',
+    },
+    {
       value: 'local-qwen3-0.6b',
       label: '本地 Qwen3-Reranker-0.6B',
       provider: 'local',
@@ -257,7 +265,7 @@
     },
   ];
   const DEFAULT_RERANKER_PROFILE =
-    RERANKER_PROFILES.find((item) => item.value === 'local-qwen3-0.6b') ||
+    RERANKER_PROFILES.find((item) => item.value === 'public-zwwen-rerank') ||
     RERANKER_PROFILES[0];
   const findRerankerProfile = (value) => {
     const normalized = normalizeText(value || '').toLowerCase().replace(/_/g, '-');
@@ -1312,8 +1320,8 @@
         const apiKey = typedApiKey;
         const baseUrl = typedBaseUrl;
 
-        if (profile.provider === 'siliconflow' && !apiKey) {
-          throw new Error('选择硅基流动 reranker 时需要填写 Reranker API Key。');
+        if (profile.provider !== 'local' && !apiKey) {
+          throw new Error(`选择 ${profile.label} 时需要填写 Reranker API Key。`);
         }
         if (profile.provider !== 'local' && !baseUrl) {
           throw new Error(`请选择 ${profile.label} 时需要填写 Rerank Base URL。`);
@@ -1412,7 +1420,7 @@
           rerankerTestStatusEl.style.color = '#c00';
           return;
         }
-        if (draft.provider !== 'siliconflow') {
+        if (draft.provider === 'local') {
           rerankerTestStatusEl.textContent = '当前选择为本地 reranker，无需远端测试。';
           rerankerTestStatusEl.style.color = '#666';
           return;
@@ -1424,7 +1432,7 @@
           return;
         }
         rerankerTestBtn.disabled = true;
-        rerankerTestStatusEl.textContent = '正在测试硅基流动 Reranker...';
+        rerankerTestStatusEl.textContent = '正在测试远端 Reranker...';
         rerankerTestStatusEl.style.color = '#666';
         try {
           const res = await fetch(endpoint, {
