@@ -1,5 +1,5 @@
 github:
-  owner: ''
+  owner: 'alexangelzhang'
   repo: daily-paper-reader
 arxiv_paper_setting:
   mode: standard
@@ -25,3 +25,25 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: 量化金融
+      keywords:
+        - keyword: quantitative finance
+        - keyword: factor model
+        - keyword: portfolio optimization
+        - keyword: alpha signal
+        - keyword: risk management
+        - keyword: backtesting
+      intent_queries:
+        - query: quantitative finance factor investing and portfolio optimization
+        - query: alpha signal generation and risk management in systematic trading
+    - tag: AI Agent
+      keywords:
+        - keyword: AI agent
+        - keyword: autonomous agent
+        - keyword: LLM agent
+        - keyword: tool use
+        - keyword: multi-agent system
+      intent_queries:
+        - query: autonomous AI agent with tool use and reasoning capabilities
+        - query: multi-agent collaboration and orchestration framework
